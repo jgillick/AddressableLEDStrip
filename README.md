@@ -11,36 +11,37 @@ Set all the LEDs on a 1 meter strip to an ascending shade of red. This code assu
 * CLK attached to pin 3
 * A 1 meter addressable LED strip (FLB-W5050RGB-16-5-N14) with 32 LEDs.
 
+Now for the code:
 
-        // Set all the LEDs on a 1 meter strip to an ascending shade of red
-        #include <AddressableLEDStrip.h>
+    // Set all the LEDs on a 1 meter strip to an ascending shade of red
+    #include <AddressableLEDStrip.h>
 
-        AddressableLEDStrip strip = AddressableLEDStrip(3, 2, 32);
+    AddressableLEDStrip strip = AddressableLEDStrip(3, 2, 32);
 
-        int redValue = 0;
-        int index = 0;
+    int redValue = 0;
+    int index = 0;
 
-        void setup()
-        {
-        }
+    void setup()
+    {
+    }
 
-        // Create an ascending RED for all pixels.
-        void loop()
-        {
-          // Set red value (reset to 0 if it's above 255)
-          redValue++;
-          if (redValue > 255) {
-            redValue = 0;
-          }
+    // Create an ascending RED for all pixels.
+    void loop()
+    {
+      // Set red value (reset to 0 if it's above 255)
+      redValue++;
+      if (redValue > 255) {
+        redValue = 0;
+      }
 
-          // Set LED color
-          strip.set_led(index, redValue, 0, 0);
-          strip.send();
+      // Set LED color
+      strip.set_led(index, redValue, 0, 0);
+      strip.send();
 
-          // Increment and delay
-          index++;
-          delay(100);
-        }
+      // Increment and delay
+      index++;
+      delay(100);
+    }
 
 License
 -------
