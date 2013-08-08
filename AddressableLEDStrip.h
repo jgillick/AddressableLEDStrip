@@ -14,7 +14,7 @@ class AddressableLEDStrip
 {
   public:
     // Create the LED strip object with the clock pin, serial data pin and the number of LEDs in the strip.
-    AddressableLEDStrip(uint8_t clk_pin, uint8_t spi_pin, uint16_t num_leds);
+    AddressableLEDStrip(int clk_pin, int spi_pin, int num_leds);
 
     // By default all color values will enforced to be between 0 - 255.
     // Set this to true if you want to preserve the set value, even though the LED will only get 0 - 255
@@ -30,13 +30,13 @@ class AddressableLEDStrip
 
     // Set all the LEDs to the same RGB value.
     // This does not write them to the strip.
-    void set_all_leds(int8_t red, int8_t green, int8_t blue);
+    void set_all_leds(int red, int green, int blue);
 
     // Update the LED strip with all the LED values.
     void send();
 
     // Get the number of LED that are in this strip (or at least what you set the length to be).
-    uint16_t length();
+    int length();
 
     // Get the red value at an LED index
     int get_red(int index);
