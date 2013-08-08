@@ -21,33 +21,33 @@ Set each LED on 1 meter strip to a random RGB color.
 
 #### Code
 
-  // Set all the LEDs to a random color.
-  #include <AddressableLEDStrip.h>
+    // Set all the LEDs to a random color.
+    #include <AddressableLEDStrip.h>
 
-  int SDI = 8;
-  int CKI = 9;
-  int LEN = 32;
+    int SDI = 8;
+    int CKI = 9;
+    int LEN = 32;
 
-  AddressableLEDStrip strip = AddressableLEDStrip(CKI, SDI, LEN);
+    AddressableLEDStrip strip = AddressableLEDStrip(CKI, SDI, LEN);
 
-  int index = 0;
+    int index = 0;
 
-  void setup() { }
+    void setup() { }
 
-  void loop() {
-    // If we're at the end of the strand, start from the beginning again.
-    if (index > LEN) {
-      index = 0;
+    void loop() {
+      // If we're at the end of the strand, start from the beginning again.
+      if (index > LEN) {
+        index = 0;
+      }
+
+      // Set the LED at 'index' to a random RGB color
+      strip.set_led(index, random(256), random(256), random(256));
+      strip.send();
+
+      // Delay 50 milliseconds and then move to the next LED
+      delay(50);
+      index++;
     }
-
-    // Set the LED at 'index' to a random RGB color
-    strip.set_led(index, random(256), random(256), random(256));
-    strip.send();
-
-    // Delay 50 milliseconds and then move to the next LED
-    delay(50);
-    index++;
-  }
 
 
 License
