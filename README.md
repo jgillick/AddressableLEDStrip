@@ -8,14 +8,12 @@ Example
 -------
 Set all the LEDs on a 1 meter strip of 32 LEDs to an ascending shade of red.
 
-Pins
-~~~~
+#### Pins
 
 * Pin 8 -> SDI (or COM)
 * Pin 9 -> CLK
 
-Code
-~~~~
+#### Code
 
     // Set all the LEDs on a 1 meter strip to an ascending shade of red
 		#include <AddressableLEDStrip.h>
