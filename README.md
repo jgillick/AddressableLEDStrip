@@ -10,6 +10,7 @@ Set all the LEDs on a 1 meter strip of 32 LEDs to an ascending shade of red.
 
 Pins
 ~~~~
+
 * Pin 8 -> SDI (or COM)
 * Pin 9 -> CLK
 
