@@ -20,14 +20,14 @@ byte redValue = 0;
 int index = 0;
 
 void setup() {
-  strip.clear_leds();
+  strip.clear_all();
   strip.send();
 }
 
 // Create an ascending RED for all pixels.
 void loop() {
   
-  redValue++;
+  redValue += 5;
   if (redValue > 255) {
     redValue = 10;
   }
@@ -38,7 +38,7 @@ void loop() {
   
   strip.set_led(index, redValue, 0, 0);
   strip.send();
-  delay(50);
+  delay(10);
   
   index++;
 }

@@ -41,26 +41,32 @@ void loop() {
         index++;
         if (index >= LEN)
           index = 0;
+        Serial.println("Move right");
         break;
       case '<':
         index--;
         if (index < 0)
           index = LEN - 1;
+        Serial.println("Move left");
         break;
       case '+':
         intensity += 15;
         if (intensity > 256)
           intensity = 256;
+        Serial.println("Increse intensity");
         break;
       case '-':
         intensity -= 15;
         if (intensity <= 0)
           intensity = 0;
+        Serial.println("Decrese intensity");
         break;
       case 'c':
         color += 1;
         if (color > 2) 
           color = 0;
+        Serial.println("Change color");
+        break;
     }
     
     set_led();
@@ -70,7 +76,7 @@ void loop() {
 // Update LED with the new settings
 void set_led(){
   // Update LED
-  strip.clear_leds();
+  strip.clear_all();
   
   switch(color) {
     case 0: // RED

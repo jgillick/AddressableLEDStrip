@@ -21,13 +21,6 @@ AddressableLEDStrip::AddressableLEDStrip(int clk_pin, int sdi_pin, int num_leds)
   pinMode(clk, OUTPUT);
 }
 
-// Sets all the LEDs to OFF
-// This does not write them to the strip.
-void AddressableLEDStrip::clear_leds()
-{
-  set_all_leds(0, 0, 0);
-}
-
 // Set the RGB value on a single LED
 // This does not write anything to the strip.
 void AddressableLEDStrip::set_led(uint16_t index, int red, int green, int blue)
@@ -52,6 +45,37 @@ void AddressableLEDStrip::set_led(uint16_t index, int red, int green, int blue)
     green_values[index] = green;
     blue_values[index] = blue;
   }
+}
+
+// Sets all the LEDs to OFF
+// This does not write them to the strip.
+void AddressableLEDStrip::clear_all()
+{
+  set_all_leds(0, 0, 0);
+}
+
+// Clear the color values for an LED at this index
+void AddressableLEDStrip::clear_led(int index)
+{
+	set_led(index, 0, 0, 0);
+}
+
+// Set the red color (0 - 255) for an LED at this index
+void AddressableLEDStrip::set_red(int index, int color)
+{
+	set_led(index, color, get_green(index), get_blue(index));
+}
+
+// Set the green color (0 - 255) for an LED at this index
+void AddressableLEDStrip::set_green(int index, int color)
+{
+	set_led(index, get_red(index), color, get_blue(index));
+}
+
+// Set the blue color (0 - 255) for an LED at this index
+void AddressableLEDStrip::set_blue(int index, int color)
+{
+	set_led(index, get_red(index), get_green(index), index);
 }
 
 // Set all the LEDs to the same RGB value.

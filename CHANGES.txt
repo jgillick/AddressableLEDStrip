@@ -1,0 +1,16 @@
+2013-08-08
+  * Fix bugs with the bit math
+  * Change clear_leds() -> clear_all()
+  * Add methods:
+    + clear_led()
+    + set_red()
+    + set_green()
+    + set_blue
+  * Add examples:
+    + move
+    + random
+    + twinkle
+    + twinkle_color
+
+2013-08-07
+  * Created initial library and a couple examples

@@ -22,7 +22,7 @@ class AddressableLEDStrip
 
     // Sets all the LEDs to OFF
     // This does not write them to the strip.
-    void clear_leds();
+    void clear_all();
 
     // Set the RGB value on a single LED
     // This does not write anything to the strip.
@@ -37,6 +37,18 @@ class AddressableLEDStrip
 
     // Get the number of LED that are in this strip (or at least what you set the length to be).
     int length();
+
+		// Clear the color values for an LED at this index
+		void clear_led(int index);
+		
+		// Set the red color (0 - 255) for an LED at this index
+		void set_red(int index, int color);
+		
+		// Set the green color (0 - 255) for an LED at this index
+		void set_green(int index, int color);
+		
+		// Set the blue color (0 - 255) for an LED at this index
+		void set_blue(int index, int color);
 
     // Get the red value at an LED index
     int get_red(int index);
