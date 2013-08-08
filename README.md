@@ -5,7 +5,7 @@ A simple arduino library for interacting with the addressable RGB LEDs sold by [
 
 Install
 -------
-[Download](./archive/master.zip) the code ZIP, extract the contents and put the folder under your Arduino library directory.
+[Download](https://github.com/jgillick/arduino-AddressableLEDStrip/archive/master.zip) the code ZIP, extract the contents and put the folder under your Arduino library directory.
 
 For more instructions, see Arduino's guide to [Installing Additional Arduino Libraries](http://arduino.cc/en/Guide/Libraries).
 
