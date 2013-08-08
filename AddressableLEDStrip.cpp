@@ -95,8 +95,7 @@ void AddressableLEDStrip::send()
   //Once the 24 bits have been delivered, the IC immediately relays these bits to its neighbor
   //Pulling the clock low for 500us or more causes the IC to post the data.
 
-  for(int i = 0 ; i < strip_len ; i++) 
-  {	
+  for(int i = 0 ; i < strip_len ; i++) {
 		_send_color_bits(get_red(i));
 		_send_color_bits(get_green(i));
 		_send_color_bits(get_blue(i));

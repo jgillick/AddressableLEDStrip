@@ -12,7 +12,7 @@ For more instructions, see Arduino's guide to [Installing Additional Arduino Lib
 
 Example
 -------
-Set all the LEDs on a 1 meter strip of 32 LEDs to an ascending shade of red.
+Set each LED on 1 meter strip to a random RGB color.
 
 #### Pins
 
@@ -21,41 +21,33 @@ Set all the LEDs on a 1 meter strip of 32 LEDs to an ascending shade of red.
 
 #### Code
 
-	// Set all the LEDs on a 1 meter strip to an ascending shade of red
-	#include <AddressableLEDStrip.h>
+  // Set all the LEDs to a random color.
+  #include <AddressableLEDStrip.h>
 
-	int SDI = 8;
-	int CKI = 9;
-	int LEN = 32;
+  int SDI = 8;
+  int CKI = 9;
+  int LEN = 32;
 
-	AddressableLEDStrip strip = AddressableLEDStrip(CKI, SDI, LEN);
+  AddressableLEDStrip strip = AddressableLEDStrip(CKI, SDI, LEN);
 
-	byte redValue = 0;
-	int index = 0;
+  int index = 0;
 
-	void setup() {
-	  strip.clear_leds();
-	  strip.send();
-	}
+  void setup() { }
 
-	// Create an ascending RED for all pixels.
-	void loop() {
+  void loop() {
+    // If we're at the end of the strand, start from the beginning again.
+    if (index > LEN) {
+      index = 0;
+    }
 
-	  redValue++;
-	  if (redValue > 255) {
-	    redValue = 10;
-	  }
+    // Set the LED at 'index' to a random RGB color
+    strip.set_led(index, random(256), random(256), random(256));
+    strip.send();
 
-	  if (index > LEN) {
-	    index = 0;
-	  }
-
-	  strip.set_led(index, redValue, 0, 0);
-	  strip.send();
-	  delay(50);
-
-	  index++;
-	}
+    // Delay 50 milliseconds and then move to the next LED
+    delay(50);
+    index++;
+  }
 
 
 License
