@@ -1,5 +1,5 @@
-Addressable RGB LED Strip, Arduino Library
-=========================================
+Addressable RGB LED Strip library for Arduino
+=============================================
 
 A simple arduino library for interacting with the addressable RGB LEDs sold by [SparkFun](https://www.sparkfun.com/products/11272).
 
