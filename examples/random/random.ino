@@ -3,20 +3,19 @@
 /*
   Set all the LEDs on a 1 meter strip to an ascending shade of red.
 
-  Pins:
-    * Pin 8 -> SDI (or COM)
-    * Pin 9 -> CLK
-  
-  For a strand of 32 addressable LEDs
+  This code assumes:
+    * SDI (or COM) attached to pin 2
+    * CLK attached to pin 3
+    * A 1 meter addressable LED strip (FLB-W5050RGB-16-5-N14) with 32 LEDs.
 */
 
-int SDI = 8;
-int CKI = 9;
+int SDI = 2;
+int CKI = 3;
 int LEN = 32;
 
 AddressableLEDStrip strip = AddressableLEDStrip(CKI, SDI, LEN);
 
-byte redValue = 0;
+int redValue = 0;
 int index = 0;
 
 void setup() {
@@ -27,16 +26,11 @@ void setup() {
 // Create an ascending RED for all pixels.
 void loop() {
   
-  redValue++;
-  if (redValue > 255) {
-    redValue = 10;
-  }
-  
   if (index > LEN) {
     index = 0;
   }
   
-  strip.set_led(index, redValue, 0, 0);
+  strip.set_led(index, random256, random(256), random(256));
   strip.send();
   delay(50);
   

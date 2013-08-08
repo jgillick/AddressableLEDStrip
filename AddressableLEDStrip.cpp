@@ -10,9 +10,9 @@ AddressableLEDStrip::AddressableLEDStrip(uint8_t clk_pin, uint8_t sdi_pin, uint1
   strip_len = num_leds;
 
   // Create color arrays
-  red_values = new uint16_t[num_leds];
-  green_values = new uint16_t[num_leds];
-  blue_values = new uint16_t[num_leds];
+  red_values = new int[num_leds];
+  green_values = new int[num_leds];
+  blue_values = new int[num_leds];
 
   // Setup pins
   clk = clk_pin;
@@ -30,7 +30,7 @@ void AddressableLEDStrip::clear_leds()
 
 // Set the RGB value on a single LED
 // This does not write anything to the strip.
-void AddressableLEDStrip::set_led(uint16_t index, int8_t red, int8_t green, int8_t blue)
+void AddressableLEDStrip::set_led(uint16_t index, int red, int green, int blue)
 {
   // Make sure index is within range
   if (index < strip_len) {
@@ -71,12 +71,11 @@ void AddressableLEDStrip::send()
   //Once the 24 bits have been delivered, the IC immediately relays these bits to its neighbor
   //Pulling the clock low for 500us or more causes the IC to post the data.
 
-  for(int i = 0 ; i < strip_len ; i++) {
-
-    // Push the RGB value for this LED
-    _send_color_bits(get_red(i));
-    _send_color_bits(get_green(i));
-    _send_color_bits(get_blue(i));
+  for(int i = 0 ; i < strip_len ; i++) 
+  {	
+		_send_color_bits(get_red(i));
+		_send_color_bits(get_green(i));
+		_send_color_bits(get_blue(i));
   }
 
   //Pull clock low to put strip into reset/post mode
@@ -85,15 +84,17 @@ void AddressableLEDStrip::send()
 }
 
 // Send the individual bits from this value to the LED strip.
-void AddressableLEDStrip::_send_color_bits(int8_t value)
+void AddressableLEDStrip::_send_color_bits(int value)
 {
   // Value must be between 0 - 255
   if (value < 0) value = 0;
   else if (value > 255) value = 255;
 
   // Pull 8 bits from the value
-  for(int bit_place = 7 ; bit_place != 255 ; bit_place--) {
-    int bit_mask = pow(2, bit_place); // 128, 64, 32, 16, 8, 4, 2, 1
+  //for(int bit_place = 7; bit_place >= 0; bit_place--) {
+  for(int bit_place = 7; bit_place >= 0; bit_place--) {
+     //int bit_mask = pow(2, bit_place); // 128, 64, 32, 16, 8, 4, 2, 1
+     int bit_mask = 1 << bit_place;  // 128, 64, 32, 16, 8, 4, 2, 1
 
     // Pull clock low to set the value
     digitalWrite(clk, LOW);
@@ -116,7 +117,7 @@ uint16_t AddressableLEDStrip::length()
 }
 
 // Get the red value at an LED index
-int8_t AddressableLEDStrip::get_red(uint16_t index)
+int AddressableLEDStrip::get_red(int index)
 {
   if (index < strip_len) {
     return red_values[index];
@@ -125,7 +126,7 @@ int8_t AddressableLEDStrip::get_red(uint16_t index)
 }
 
 // Get the green value at an LED index
-int8_t AddressableLEDStrip::get_green(uint16_t index)
+int AddressableLEDStrip::get_green(int index)
 {
   if (index < strip_len) {
     return green_values[index];
@@ -134,7 +135,7 @@ int8_t AddressableLEDStrip::get_green(uint16_t index)
 }
 
 // Get the blue value at an LED index
-int8_t AddressableLEDStrip::get_blue(uint16_t index)
+int AddressableLEDStrip::get_blue(int index)
 {
   if (index < strip_len) {
     return blue_values[index];

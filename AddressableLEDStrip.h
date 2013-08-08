@@ -26,7 +26,7 @@ class AddressableLEDStrip
 
     // Set the RGB value on a single LED
     // This does not write anything to the strip.
-    void set_led(uint16_t index, int8_t red, int8_t green, int8_t blue);
+    void set_led(uint16_t index, int red, int green, int blue);
 
     // Set all the LEDs to the same RGB value.
     // This does not write them to the strip.
@@ -39,23 +39,24 @@ class AddressableLEDStrip
     uint16_t length();
 
     // Get the red value at an LED index
-    int8_t get_red(uint16_t index);
+    int get_red(int index);
 
     // Get the green value at an LED index
-    int8_t get_green(uint16_t index);
+    int get_green(int index);
 
     // Get the blue value at an LED index
-    int8_t get_blue(uint16_t index);
+    int get_blue(int index);
 
   private:
     int clk;
     int sdi;
     int strip_len;
-    uint16_t *red_values;
-    uint16_t *green_values;
-    uint16_t *blue_values;
+    int *red_values;
+    int *green_values;
+    int *blue_values;
 
-    void _send_color_bits(int8_t value);
+    void _send_color_bits(int value);
+	int8_t _normalize_color(int value);
 };
 
 #endif
