@@ -6,42 +6,52 @@ A simple arduino library for interacting with the addressable RGB LED strip sold
 
 Example
 -------
-Set all the LEDs on a 1 meter strip to an ascending shade of red. This code assumes:
-* SDI (or COM) attached to pin 2
-* CLK attached to pin 3
-* A 1 meter addressable LED strip (FLB-W5050RGB-16-5-N14) with 32 LEDs.
+Set all the LEDs on a 1 meter strip of 32 LEDs to an ascending shade of red.
 
-Now for the code:
+Pins
+~~~~
+* Pin 8 -> SDI (or COM)
+* Pin 9 -> CLK
+
+Code
+~~~~
 
     // Set all the LEDs on a 1 meter strip to an ascending shade of red
-    #include <AddressableLEDStrip.h>
+		#include <AddressableLEDStrip.h>
 
-    AddressableLEDStrip strip = AddressableLEDStrip(3, 2, 32);
+		int SDI = 8;
+		int CKI = 9;
+		int LEN = 32;
 
-    int redValue = 0;
-    int index = 0;
+		AddressableLEDStrip strip = AddressableLEDStrip(CKI, SDI, LEN);
 
-    void setup()
-    {
-    }
+		byte redValue = 0;
+		int index = 0;
 
-    // Create an ascending RED for all pixels.
-    void loop()
-    {
-      // Set red value (reset to 0 if it's above 255)
-      redValue++;
-      if (redValue > 255) {
-        redValue = 0;
-      }
+		void setup() {
+		  strip.clear_leds();
+		  strip.send();
+		}
 
-      // Set LED color
-      strip.set_led(index, redValue, 0, 0);
-      strip.send();
+		// Create an ascending RED for all pixels.
+		void loop() {
+  
+		  redValue++;
+		  if (redValue > 255) {
+		    redValue = 10;
+		  }
+  
+		  if (index > LEN) {
+		    index = 0;
+		  }
+  
+		  strip.set_led(index, redValue, 0, 0);
+		  strip.send();
+		  delay(50);
+  
+		  index++;
+		}
 
-      // Increment and delay
-      index++;
-      delay(100);
-    }
 
 License
 -------
