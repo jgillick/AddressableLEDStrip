@@ -15,41 +15,41 @@ Set all the LEDs on a 1 meter strip of 32 LEDs to an ascending shade of red.
 
 #### Code
 
-    // Set all the LEDs on a 1 meter strip to an ascending shade of red
-		#include <AddressableLEDStrip.h>
+	// Set all the LEDs on a 1 meter strip to an ascending shade of red
+	#include <AddressableLEDStrip.h>
 
-		int SDI = 8;
-		int CKI = 9;
-		int LEN = 32;
+	int SDI = 8;
+	int CKI = 9;
+	int LEN = 32;
 
-		AddressableLEDStrip strip = AddressableLEDStrip(CKI, SDI, LEN);
+	AddressableLEDStrip strip = AddressableLEDStrip(CKI, SDI, LEN);
 
-		byte redValue = 0;
-		int index = 0;
+	byte redValue = 0;
+	int index = 0;
 
-		void setup() {
-		  strip.clear_leds();
-		  strip.send();
-		}
+	void setup() {
+	  strip.clear_leds();
+	  strip.send();
+	}
 
-		// Create an ascending RED for all pixels.
-		void loop() {
-  
-		  redValue++;
-		  if (redValue > 255) {
-		    redValue = 10;
-		  }
-  
-		  if (index > LEN) {
-		    index = 0;
-		  }
-  
-		  strip.set_led(index, redValue, 0, 0);
-		  strip.send();
-		  delay(50);
-  
-		  index++;
-		}
+	// Create an ascending RED for all pixels.
+	void loop() {
+
+	  redValue++;
+	  if (redValue > 255) {
+	    redValue = 10;
+	  }
+
+	  if (index > LEN) {
+	    index = 0;
+	  }
+
+	  strip.set_led(index, redValue, 0, 0);
+	  strip.send();
+	  delay(50);
+
+	  index++;
+	}
 
 
 License
