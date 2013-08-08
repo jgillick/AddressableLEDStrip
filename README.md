@@ -7,10 +7,9 @@ A simple arduino library for interacting with the addressable RGB LED strip sold
 Example
 -------
 Set all the LEDs on a 1 meter strip to an ascending shade of red. This code assumes:
-  * SDI (or COM) attached to pin 2
-  * CLK attached to pin 3
-  * A 1 meter addressable LED strip (FLB-W5050RGB-16-5-N14) with 32 LEDs.
-
+* SDI (or COM) attached to pin 2
+* CLK attached to pin 3
+* A 1 meter addressable LED strip (FLB-W5050RGB-16-5-N14) with 32 LEDs.
 
       // Set all the LEDs on a 1 meter strip to an ascending shade of red
       #include <AddressableLEDStrip.h>
