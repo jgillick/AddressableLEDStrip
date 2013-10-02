@@ -10,9 +10,17 @@ AddressableLEDStrip::AddressableLEDStrip(int clk_pin, int sdi_pin, int num_leds)
   strip_len = num_leds;
 
   // Create color arrays
-  red_values = new int[num_leds];
-  green_values = new int[num_leds];
-  blue_values = new int[num_leds];
+  red_values = (int *) malloc(num_leds * sizeof(int));
+  green_values = (int *) malloc(num_leds * sizeof(int));
+  blue_values = (int *) malloc(num_leds * sizeof(int));
+
+  // Set the arrays or return
+  if(red_values) memset(red_values, 0, num_leds);
+  else return;
+  if(green_values) memset(green_values, 0, num_leds);
+  else return;
+  if(blue_values) memset(blue_values, 0, num_leds);
+  else return;
 
   // Setup pins
   clk = clk_pin;
