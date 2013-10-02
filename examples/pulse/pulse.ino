@@ -1,7 +1,8 @@
 #include <AddressableLEDStrip.h>
 
 /*
-  Set all the LEDs to a random color and then pulse them on and off.
+  Set all the LEDs to RED at a medium intensity and then create a 
+  heartbeat-like pulse from the middle of the LED strand.
 
   Pins:
     * Pin 8 -> SDI (or COM)
@@ -10,64 +11,69 @@
   For a strand of 32 addressable LEDs
 */
 
-int SDI = 8;
-int CKI = 9;
-#define LEN 32
+int SDI = 8;  // Pin connected to SDI on the LED strand
+int CKI = 9;  // Pin connected to CLK on the LED strand
+int LEN = 32; // Number of LEDs in your strand
+
+int intensity = 35; // The initial intensity of LEDs (0 - 255)
+
+int direction = 1; // Pulsing direction: 1 = up, -1 = down
+int increment = 8; // How much to increment each LED during each cycle
+
+double speed = 20;  // The speed of the pulsing
+double accel = 1; // The acceleration of each pulse
 
 AddressableLEDStrip strip = AddressableLEDStrip(CKI, SDI, LEN);
-
-int redValue = 0;
-int index = 0;
-int dir = -1;
-int count = 0;
-int inc = 2;
-int strip_colors[LEN];
+int cycle, middle;
 
 void setup() {
   strip.allow_out_of_bounds = true;
   
-  // Pick a color to make random (R, G or B)
-  for(int i = 0; i < LEN; i++){
-    strip_colors[i] = random(0, 3);
-    int color = random(50, 200);
-    
-    switch (strip_colors[i]){
-      case 0:
-        strip.set_led(i, color, 0, 0);
-        break;
-      case 1:
-        strip.set_led(i, 0, color, 0);
-        break;
-      case 2:
-        strip.set_led(i, 0, 0, color);
-        break;
-    }
+  // Make all the LEDs red
+  for (int i = 0; i < LEN; i++) {
+    strip.set_led(i, intensity, 0, 0);
   } 
-  
   strip.send();
+  
+  cycle = 0;
+  middle = round(LEN / 2);
 }
 
-// Create an ascending RED for all pixels.
 void loop() {
   
-  // Adjust the intensity of each LED by 1 either up or down (per 'dir' variable)
-  for(int i = 0; i < LEN; i++){
-    int colors[] = { strip.get_red(i), strip.get_green(i), strip.get_blue(i) };
-    int change = strip_colors[i];
-    
-    colors[ change ] += (dir * inc);
-    
-    strip.set_led(i, colors[0], colors[1], colors[2]);
+  // Increment cycle, change direction if we're at the end
+  cycle += direction;
+  if (cycle <= 0 || cycle > LEN) {
+    direction *= -1;
+    cycle += direction;
   }
+  
+  // Increment the intensity of the LEDs, from the middle out
+  inc_led(middle);
+  for (int i = 1; i < cycle; i++) {
+    
+    // Left/right indexes to increment
+    int lindex = middle - i;
+    int rindex = middle + i;
+    
+    inc_led(lindex);
+    inc_led(rindex);
+  }
+  
   strip.send();
   
-  count += inc;
-  delay(5);
-  
-  // Switch direction after 255 cycles
-  if (count >= 200) {
-    count = 0;
-    dir *= -1;
+  // Pause
+  delay(speed);
+  speed += (accel * direction);
+}
+
+// Increment the color on an LED
+void inc_led(int index) {
+  if (index >= 0 && index < LEN) {
+    int color = strip.get_red(index);
+    color += (direction * increment);
+    
+    strip.set_led(index, color, 0, 0);
   }
 }
 

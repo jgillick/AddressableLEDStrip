@@ -27,23 +27,19 @@ void setup() {
   randomSeed(analogRead(0));
   strip.allow_out_of_bounds = true;
   
-  chooseColors();
- 
-  strip.send();
-}
-
-// Pick a color for each LED
-void chooseColors() {
+  // Choose starting intensities
   for(int i = 0; i < LEN; i++){
     int intensity = random(-200, 10);
     strip.set_led(i, intensity, intensity, intensity);
   } 
+ 
+  strip.send();
 }
 
 // Create an ascending RED for all pixels.
 void loop() {
   
-  // Adjust the intensity of each LED by 1 either up or down (per 'dir' variable)
+  // Adjust the intensity of each LED by 'inc'
   for(int i = 0; i < LEN; i++){
     int intensity = strip.get_red(i);
     intensity += inc;

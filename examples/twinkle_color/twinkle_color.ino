@@ -20,7 +20,6 @@ int CKI = 9;
 
 AddressableLEDStrip strip = AddressableLEDStrip(CKI, SDI, LEN);
 
-int redValue = 0;
 int count = 0;
 int inc = 2;
 
