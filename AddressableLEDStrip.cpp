@@ -83,7 +83,7 @@ void AddressableLEDStrip::set_green(int index, int color)
 // Set the blue color (0 - 255) for an LED at this index
 void AddressableLEDStrip::set_blue(int index, int color)
 {
-	set_led(index, get_red(index), get_green(index), index);
+	set_led(index, get_red(index), get_green(index), color);
 }
 
 // Set all the LEDs to the same RGB value.
